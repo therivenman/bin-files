@@ -8,5 +8,5 @@ Installation:
 1. Clone repo:
 
   ```
-  https://github.com/therivenman/bin-files.git ~/bin
+  git clone https://github.com/therivenman/bin-files.git ~/bin
   ```
