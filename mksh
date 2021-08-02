@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# Shell script to make shell scripts
+
+PROGDIR=$(dirname $(readlink -f $0))
+SCRIPTNAME=$(basename $0)
+
+function usage()
+{
+  echo "Usage: $SCRIPTNAME filename"
+  exit 1
+}
+
+function exit_on_error()
+{
+  local message="$1"
+  echo $message
+  exit 1
+}
+
+function fill_template()
+{
+  local filename=$1
+cat << 'EOF' > $filename
+#!/bin/bash
+
+PROGDIR=$(dirname $(readlink -f $0))
+SCRIPTNAME=$(basename $0)
+
+# Enter script description
+
+function usage()
+{
+  echo "Usage: $SCRIPTNAME filename"
+  exit 1
+}
+
+function exit_on_error()
+{
+  local message="$1"
+  echo $message
+  exit 1
+}
+
+function main()
+{
+  local numargs=$#
+  local filename=$1
+
+}
+main "$@"
+EOF
+}
+
+function make_executable()
+{
+  local filename=$1
+  chmod a+x $filename
+}
+
+function main()
+{
+  local numargs=$#
+  local filename=$1
+
+  if [ $numargs -ne 1 ]; then
+    usage
+  fi
+
+  if [ -e $filename ]; then
+    exit_on_error "$filename already exists..."
+  fi
+
+  fill_template $filename
+  make_executable $filename
+
+  echo "Script $filename created."
+}
+main "$@"

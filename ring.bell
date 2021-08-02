@@ -1,0 +1,28 @@
+#!/bin/bash
+
+PROGDIR=$(dirname $(readlink -f $0))
+SCRIPTNAME=$(basename $0)
+
+# Enter script description
+
+function usage()
+{
+  echo "Usage: $SCRIPTNAME filename"
+  exit 1
+}
+
+function exit_on_error()
+{
+  local message="$1"
+  echo $message
+  exit 1
+}
+
+function main()
+{
+  local numargs=$#
+  local filename=$1
+
+  tput bel
+}
+main "$@"
